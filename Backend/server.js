@@ -19,8 +19,13 @@ const newsletterRoutes = require('./routes/newsletterRoutes');
 connectDB();
 
 const app = express();
-
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({
+  origin: [
+    'http://localhost:5173', // Keep local development working
+    'https://omnicode-ai.vercel.app' // Allow your production frontend
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 app.get('/', (req, res) => {
