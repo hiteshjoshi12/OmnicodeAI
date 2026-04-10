@@ -29,6 +29,8 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   const handleSubscribe = async (e) => {
     e.preventDefault();
@@ -38,7 +40,7 @@ export default function Footer() {
     setStatus({ type: '', message: '' });
 
     try {
-      await axios.post('http://localhost:5000/api/newsletter/subscribe', { email });
+      await axios.post(`${apiUrl}/api/newsletter/subscribe`, { email });
       setStatus({ type: 'success', message: 'Thanks for subscribing!' });
       setEmail(''); // Clear input on success
       

@@ -10,6 +10,7 @@ export default function SettingsTab() {
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Fetch settings on load
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function SettingsTab() {
       try {
         const token = localStorage.getItem('omnicode_token');
         // CHANGED: Point to the unified /api/settings route
-        const response = await axios.get('http://localhost:5000/api/settings', {
+        const response = await axios.get(`${apiUrl}/api/settings`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -41,7 +42,7 @@ export default function SettingsTab() {
     try {
       const token = localStorage.getItem('omnicode_token');
       // CHANGED: Point to the unified /api/settings route
-      await axios.put('http://localhost:5000/api/settings', {
+      await axios.put(`${apiUrl}/api/settings`, {
         maintenanceMode,
         signupEnabled,
         defaultCredits: Number(defaultCredits)

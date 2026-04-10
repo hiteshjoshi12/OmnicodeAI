@@ -24,13 +24,14 @@ export default function UsersTab() {
   const [editingUser, setEditingUser] = useState(null);
   const [deletingUser, setDeletingUser] = useState(null);
   const [actionLoading, setActionLoading] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Fetch Users
   const fetchUsers = async () => {
     setLoadingUsers(true);
     try {
       const token = localStorage.getItem('omnicode_token');
-      const response = await axios.get('http://localhost:5000/api/admin/users', {
+      const response = await axios.get(`${apiUrl}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(response.data.users);
@@ -59,7 +60,7 @@ export default function UsersTab() {
     try {
       const token = localStorage.getItem('omnicode_token');
       // Replace with your actual PUT endpoint
-      await axios.put(`http://localhost:5000/api/admin/users/${editingUser._id}`, 
+      await axios.put(`${apiUrl}/api/admin/users/${editingUser._id}`, 
         { plan: editingUser.plan, credits: editingUser.credits },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,7 +81,7 @@ export default function UsersTab() {
     try {
       const token = localStorage.getItem('omnicode_token');
       // Replace with your actual DELETE endpoint
-      await axios.delete(`http://localhost:5000/api/admin/users/${deletingUser._id}`, {
+      await axios.delete(`${apiUrl}/api/admin/users/${deletingUser._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

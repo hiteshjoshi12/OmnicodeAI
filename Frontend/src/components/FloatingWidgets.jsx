@@ -19,6 +19,8 @@ export default function FloatingWidgets() {
   
   const messagesEndRef = useRef(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   // 1. ALL HOOKS MUST COME FIRST
   useEffect(() => {
     const handleScroll = () => setShowTopBtn(window.scrollY > 400);
@@ -30,7 +32,7 @@ export default function FloatingWidgets() {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/support/faqs');
+        const res = await axios.get(`${apiUrl}/api/support/faqs`);
         setFaqs(res.data);
       } catch (err) {
         console.error("Could not load FAQs", err);

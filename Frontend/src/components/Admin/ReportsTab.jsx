@@ -7,6 +7,7 @@ export default function ReportsTab() {
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [generatingId, setGeneratingId] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Fetch a quick list of users to populate the table
   useEffect(() => {
@@ -14,7 +15,7 @@ export default function ReportsTab() {
       try {
         const token = localStorage.getItem('omnicode_token');
         // Re-using your existing users endpoint to get the list
-        const response = await axios.get('http://localhost:5000/api/admin/users', {
+        const response = await axios.get(`${apiUrl}/api/admin/users`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(response.data.users || response.data); 
@@ -64,7 +65,7 @@ export default function ReportsTab() {
     try {
       const token = localStorage.getItem('omnicode_token');
       // Hit our new endpoint
-      const response = await axios.get(`http://localhost:5000/api/admin/reports/user/${userId}`, {
+      const response = await axios.get(`${apiUrl}/api/admin/reports/user/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

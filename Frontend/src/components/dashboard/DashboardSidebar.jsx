@@ -11,9 +11,11 @@ import { useAuth } from '../../context/AuthContext';
 export default function DashboardSidebar({ activeApp, setActiveApp, isCollapsed, setIsCollapsed, setCurrentTask }) {
   const { user, token } = useAuth();
   const navigate = useNavigate(); 
+  const apiUrl = import.meta.env.VITE_API_URL;
   
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
+  const 
 
   const microapps = [
     { id: 'code', name: 'Code Generator', icon: <Code2 size={18} /> },
@@ -25,7 +27,7 @@ export default function DashboardSidebar({ activeApp, setActiveApp, isCollapsed,
     const fetchHistory = async () => {
       if (!token) return;
       try {
-        const response = await axios.get('http://localhost:5000/api/history', {
+        const response = await axios.get(`${apiUrl}/api/history`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setHistory(response.data.history);

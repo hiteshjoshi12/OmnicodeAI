@@ -9,6 +9,8 @@ export default function CMSTab() {
 
   const [pricingPlans, setPricingPlans] = useState([]);
   const [editingPlanId, setEditingPlanId] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
 
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +18,7 @@ export default function CMSTab() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/settings');
+        const response = await axios.get(`${apiUrl}/api/settings`);
         
         // Re-attach JSX icons to the prompts after fetching from DB
         const dbPrompts = response.data.prompts.map(p => ({
@@ -42,7 +44,7 @@ export default function CMSTab() {
       // Strip out the React icon components before sending to MongoDB
       const cleanPrompts = prompts.map(({ icon, ...rest }) => rest);
       
-      await axios.put('http://localhost:5000/api/settings', { prompts: cleanPrompts });
+      await axios.put(`${apiUrl}/api/settings`, { prompts: cleanPrompts });
       setEditingPromptId(null);
       alert('Prompt saved successfully!');
     } catch (error) {
@@ -53,7 +55,7 @@ export default function CMSTab() {
 
   const handleSavePlan = async (id) => {
     try {
-      await axios.put('http://localhost:5000/api/settings', { pricingPlans });
+      await axios.put(`${apiUrl}/api/settings`, { pricingPlans });
       setEditingPlanId(null);
       alert('Pricing plan saved successfully!');
     } catch (error) {

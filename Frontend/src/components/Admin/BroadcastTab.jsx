@@ -9,12 +9,13 @@ export default function BroadcastTab() {
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [sending, setSending] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem('omnicode_token');
-        const response = await axios.get('http://localhost:5000/api/admin/users', {
+        const response = await axios.get(`${apiUrl}/api/admin/users`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUsers(response.data.users || response.data); 
