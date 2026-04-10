@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Deep Midnight Custom Scrollbar --- */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Super thin and sleek */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Invisible track so it blends with the glass */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1); /* Subtle frosted white/gray */
+  border-radius: 10px; /* Fully rounded edges */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2); /* Brightens slightly when hovered */
+}
+
+/* For Firefox compatibility */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
