@@ -13,6 +13,8 @@ export default function ResetPassword() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL; // <-- Get API URL from environment variable
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (error) setError('');
@@ -39,7 +41,7 @@ export default function ResetPassword() {
     setError('');
 
     try {
-      await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, { 
+      await axios.post(`${apiUrl}/api/auth/reset-password/${token}`, { 
         password: formData.password 
       });
       

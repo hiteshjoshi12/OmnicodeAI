@@ -10,6 +10,8 @@ const fade = {
 export default function ApiDocsModern() {
   const [activeTab, setActiveTab] = useState("intro");
 
+  const apiUrl = import.meta.env.VITE_API_URL; // <-- 1. Get API URL from env
+
   const tabs = [
     { id: "intro", label: "Introduction" },
     { id: "auth", label: "Authentication" },
@@ -19,7 +21,6 @@ export default function ApiDocsModern() {
 
   return (
     <div className="min-h-screen bg-[#0b0f2a] text-white relative overflow-hidden pt-24">
-
       {/* 🔥 Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
@@ -56,14 +57,14 @@ export default function ApiDocsModern() {
 
       {/* CONTENT */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 pb-20">
-
         {/* INTRO */}
         {activeTab === "intro" && (
           <motion.div variants={fade} initial="hidden" animate="visible">
             <div className="bg-white/5 border border-white/10 rounded-xl p-6">
               <h2 className="text-2xl font-bold mb-3">Introduction</h2>
               <p className="text-slate-400">
-                Build faster with AI — integrate Omnicode to automate coding and streamline your workflow.
+                Build faster with AI — integrate Omnicode to automate coding and
+                streamline your workflow.
               </p>
             </div>
           </motion.div>
@@ -87,8 +88,12 @@ export default function ApiDocsModern() {
 
         {/* ENDPOINTS */}
         {activeTab === "endpoints" && (
-          <motion.div variants={fade} initial="hidden" animate="visible" className="space-y-6">
-
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            animate="visible"
+            className="space-y-6"
+          >
             <div className="bg-white/5 border border-white/10 rounded-xl p-6">
               <h3 className="text-indigo-400 font-bold mb-2">
                 POST /api/auth/login
@@ -98,7 +103,7 @@ export default function ApiDocsModern() {
               </p>
 
               <pre className="bg-black/40 p-4 rounded-lg text-sm text-slate-300">
-{`{
+                {`{
   "email": "user@example.com",
   "password": "12345678"
 }`}
@@ -109,19 +114,16 @@ export default function ApiDocsModern() {
               <h3 className="text-indigo-400 font-bold mb-2">
                 POST /api/auth/register
               </h3>
-              <p className="text-slate-400 mb-3">
-                Create a new account.
-              </p>
+              <p className="text-slate-400 mb-3">Create a new account.</p>
 
               <pre className="bg-black/40 p-4 rounded-lg text-sm text-slate-300">
-{`{
+                {`{
   "fullName": "John Doe",
   "email": "john@example.com",
   "password": "12345678"
 }`}
               </pre>
             </div>
-
           </motion.div>
         )}
 
@@ -132,14 +134,13 @@ export default function ApiDocsModern() {
               <h2 className="text-2xl font-bold mb-3">Example Request</h2>
 
               <pre className="bg-black/40 p-4 rounded-lg text-green-400 text-sm">
-{`curl -X POST http://localhost:5000/api/auth/login \\
+                {`curl -X POST ${apiUrl}/api/auth/login \\
 -H "Content-Type: application/json" \\
 -d '{"email":"user@example.com","password":"12345678"}'`}
               </pre>
             </div>
           </motion.div>
         )}
-
       </div>
     </div>
   );

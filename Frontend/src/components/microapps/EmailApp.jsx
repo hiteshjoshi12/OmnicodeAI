@@ -131,6 +131,8 @@ export default function EmailApp({ currentTask }) { // <-- 2. Receive currentTas
   const [copiedSubject, setCopiedSubject] = useState(false);
   const [copiedBody, setCopiedBody] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [generatedEmail, setGeneratedEmail] = useState({
     subject: 'Welcome to Omnicode AI - Your Next-Gen Workspace',
     body: 'Hi there,\n\nWelcome to Omnicode AI! We are thrilled to have you on board.\n\nOur platform is designed to supercharge your development workflow by instantly generating high-quality React components, professional emails, and stunning images directly from your prompts.\n\nTo get started, simply navigate to your Dashboard and try out the Code Generator.\n\nBest regards,\n\nThe Omnicode Team'
@@ -200,7 +202,7 @@ export default function EmailApp({ currentTask }) { // <-- 2. Receive currentTas
       // We use the existing API endpoint, but tell it we are using the 'email' appType for history
       // Inside handleGenerate in EmailApp.jsx
       const response = await axios.post(
-        'http://localhost:5000/api/ai/generate-email', 
+        `${apiUrl}/api/ai/generate-email`, 
         { 
           prompt: finalPrompt,
           provider: selectedModel.id // <-- ADD THIS

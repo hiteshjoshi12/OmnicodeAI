@@ -22,6 +22,8 @@ export default function ProfileView() {
   const [profileData, setProfileData] = useState(contextUser);
   const [loading, setLoading] = useState(true);
 
+  const apiUrl = import.meta.env.VITE_API_URL; // <-- Get API URL from environment variable
+
   // Helper to apply ImageKit Face Crop transformation
   const getTransformedImage = (url) => {
     if (!url) return null;
@@ -35,7 +37,7 @@ export default function ProfileView() {
     const fetchFreshProfile = async () => {
       try {
         const token = localStorage.getItem('omnicode_token');
-        const response = await axios.get('http://localhost:5000/api/users/profile', {
+        const response = await axios.get(`${apiUrl}/api/users/profile`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         

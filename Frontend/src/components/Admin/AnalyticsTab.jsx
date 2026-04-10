@@ -7,13 +7,14 @@ import axios from 'axios';
 export default function AnalyticsTab() {
   const [data, setData] = useState({ revenueData: [], userGrowthData: [], appUsageData: [], kpis: {} });
   const [loading, setLoading] = useState(true);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Fetch real data from the database
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
         const token = localStorage.getItem('omnicode_token');
-        const response = await axios.get('http://localhost:5000/api/admin/analytics', {
+        const response = await axios.get(`${apiUrl}/api/admin/analytics`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setData(response.data);

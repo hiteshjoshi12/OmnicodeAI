@@ -19,6 +19,8 @@ export default function VerifyOTP() {
 
   const email = location.state?.email;
 
+  const apiUrl = import.meta.env.VITE_API_URL; // <-- Get API URL from environment variable
+
   useEffect(() => {
     if (!email) {
       navigate('/register', { replace: true });
@@ -31,7 +33,7 @@ export default function VerifyOTP() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/verify-otp', {
+      const response = await axios.post(`${apiUrl}/api/auth/verify-otp`, {
         email,
         otp
       });
@@ -54,7 +56,7 @@ export default function VerifyOTP() {
     
     try {
       // Hits the new backend route we just created!
-      await axios.post('http://localhost:5000/api/auth/resend-otp', { email });
+      await axios.post(`${apiUrl}/api/auth/resend-otp`, { email });
       setResendMessage('A new code has been sent!');
       setTimeout(() => setResendMessage(''), 5000); // Clear message after 5s
     } catch (err) {

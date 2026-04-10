@@ -33,12 +33,13 @@ export default function Pricing() {
   const [plans, setPlans] = useState([]);
   const [loadingPlans, setLoadingPlans] = useState(true);
   const [processingPlan, setProcessingPlan] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // --- FETCH FROM DATABASE ---
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/settings');
+        const response = await axios.get(`${apiUrl}/api/settings`);
         setPlans(response.data.pricingPlans);
       } catch (error) {
         console.error("Failed to fetch pricing plans:", error);
@@ -80,7 +81,7 @@ export default function Pricing() {
       const headers = { Authorization: `Bearer ${token}` };
 
       const orderResponse = await axios.post(
-        'http://localhost:5000/api/payment/create-order', 
+        `${apiUrl}/api/payment/create-order`, 
         { amount: parseInt(plan.price) }, 
         { headers }
       );
@@ -95,7 +96,7 @@ export default function Pricing() {
         handler: async function (response) {
           try {
             const verifyResponse = await axios.post(
-              'http://localhost:5000/api/payment/verify-payment',
+              `${apiUrl}/api/payment/verify-payment`,
               {
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_order_id: response.razorpay_order_id,

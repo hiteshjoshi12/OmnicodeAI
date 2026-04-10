@@ -41,6 +41,8 @@ export default function Profile() {
   
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
+
+  const apiUrl = import.meta.env.VITE_API_URL; // <-- Get API URL from environment variable
   
   const fileInputRef = useRef(null);
 
@@ -85,7 +87,7 @@ export default function Profile() {
       }
 
       const response = await axios.put(
-        'http://localhost:5000/api/users/profile',
+        `${apiUrl}/api/users/profile`,
         submitData,
         {
           headers: {

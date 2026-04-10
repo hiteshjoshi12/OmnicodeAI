@@ -10,6 +10,8 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear error when user starts typing again
@@ -63,7 +65,7 @@ export default function Register() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
+      const response = await axios.post(`${apiUrl}/api/auth/register`, formData);
       
       if (response.status === 200 || response.status === 201) {
         navigate('/verify-otp', { state: { email: formData.email } });

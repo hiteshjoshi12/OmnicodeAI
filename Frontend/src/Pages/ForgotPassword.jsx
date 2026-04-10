@@ -10,6 +10,8 @@ export default function ForgotPassword() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleChange = (e) => {
     setEmail(e.target.value);
     if (error) setError('');
@@ -38,7 +40,7 @@ export default function ForgotPassword() {
 
     try {
       // Ensure you have this route set up on your backend!
-      await axios.post('http://localhost:5000/api/auth/forgot-password', { email });
+      await axios.post(`${apiUrl}/api/auth/forgot-password`, { email });
       
       // Show the success state animation
       setSuccess(true);

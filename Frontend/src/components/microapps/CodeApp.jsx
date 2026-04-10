@@ -19,8 +19,6 @@ import {
   SandpackPreview,
 } from "@codesandbox/sandpack-react";
 
-// Assuming you extracted these to your UI folder based on our previous step!
-// If you kept LanguageDropdown inside this file, that's fine too, just remove this import.
 import LanguageDropdown from "../ui/LanguageDropdown";
 
 
@@ -101,6 +99,7 @@ export default function CodeApp({ currentTask, setShowPricingModal }) {
   const [activeTab, setActiveTab] = useState("preview");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const [messages, setMessages] = useState([
     {
@@ -223,7 +222,7 @@ export default function CodeApp({ currentTask, setShowPricingModal }) {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/ai/generate-code",
+        `${apiUrl}/api/ai/generate-code`,
         {
           prompt: finalPrompt,
           provider: selectedModel.id, // Send the selected model to backend

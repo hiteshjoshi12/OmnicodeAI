@@ -114,6 +114,8 @@ export default function ImageApp({ currentTask }) { // <-- 2. Receive currentTas
   const [error, setError] = useState('');
   const [images, setImages] = useState([]);
 
+  const apiUrl = import.meta.env.VITE_API_URL; // <-- 4. Use API URL from env
+
   // --- 4. Listen for History Sidebar Clicks ---
  // Listen for History Sidebar Clicks
   useEffect(() => {
@@ -167,7 +169,7 @@ export default function ImageApp({ currentTask }) { // <-- 2. Receive currentTas
       const token = localStorage.getItem('omnicode_token');
       
       const response = await axios.post(
-        'http://localhost:5000/api/ai/generate-image', 
+        `${apiUrl}/api/ai/generate-image`, 
         { 
           prompt: cleanPrompt, // Send the cleaned prompt
           aspectRatio, 
