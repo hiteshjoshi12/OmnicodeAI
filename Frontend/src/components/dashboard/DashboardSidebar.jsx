@@ -15,8 +15,6 @@ export default function DashboardSidebar({ activeApp, setActiveApp, isCollapsed,
   
   const [history, setHistory] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(true);
-  const 
-
   const microapps = [
     { id: 'code', name: 'Code Generator', icon: <Code2 size={18} /> },
     { id: 'email', name: 'Email Writer', icon: <Mail size={18} /> },
